@@ -11,21 +11,21 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         
-        self.button = PlayPauseButton(frame: CGRectMake(0, 0, 150, 150))
+        self.button = PlayPauseButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
        
        // self.button = PlayPauseButton(frame: self.button.frame)
-        self.button.strokeColor = UIColor.blueColor().CGColor
-        self.button.fillColor = UIColor.lightGrayColor().CGColor
-        self.button.backgroundColor = UIColor.darkGrayColor()
+        self.button.strokeColor = UIColor.blue.cgColor
+        self.button.fillColor = UIColor.lightGray.cgColor
+        self.button.backgroundColor = UIColor.darkGray
         //self.button.center = view.center
-        self.button.addTarget(self, action: #selector(ViewController.toggle(_:)), forControlEvents:.TouchUpInside)
+        self.button.addTarget(self, action: #selector(ViewController.toggle(_:)), for:.touchUpInside)
         
         view.addSubview(self.button)
     
         
 }
 
-    func toggle(sender: AnyObject!) {
+    func toggle(_ sender: AnyObject!) {
         self.button.showsMenu = !self.button.showsMenu
     }
     
