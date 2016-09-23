@@ -10,6 +10,7 @@
 import QuartzCore
 import UIKit
 
+@IBDesignable
 class PlayPauseButton : UIButton {
     
     var top: CAShapeLayer! = CAShapeLayer()
@@ -64,6 +65,46 @@ class PlayPauseButton : UIButton {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
+        self.left.path      = leftPath(frame)
+        self.top.path       = topPath(frame)
+        self.bottom.path    = bottomPath(frame)
+        
+        for layer in [ self.bottom, self.left, self.top ] {
+            layer?.fillColor = fillColor
+            layer?.strokeColor = strokeColor
+            layer?.lineWidth = lineWidth
+            layer?.miterLimit = miterLimit
+            layer?.lineCap = kCALineCapRound
+            layer?.masksToBounds = true
+            layer?.anchorPoint = CGPoint(x: 0, y: 0)
+            
+            let strokingPath = CGPath(__byStroking: (layer?.path!)!, transform: nil, lineWidth: 4, lineCap: CGLineCap.round, lineJoin: CGLineJoin.round, miterLimit: 4)
+            
+            layer?.bounds = (strokingPath?.boundingBoxOfPath)!
+            
+            layer?.actions = [
+                "strokeStart": NSNull(),
+                "strokeEnd": NSNull(),
+                "transform": NSNull()
+            ]
+            
+            self.layer.addSublayer(layer!)
+        }
+        
+        self.top.position = CGPoint(x: self.bounds.midX - self.top.bounds.size.width / 2,
+                                    y: self.bounds.midY - self.top.bounds.size.height / 2)
+        self.top.strokeStart = topStrokeStart
+        self.top.strokeEnd = topStrokeEnd
+        
+        self.left.position = self.top.position
+        self.left.strokeStart = 0.0
+        self.left.strokeEnd = 1.0
+        
+        self.bottom.position = CGPoint(x: self.bounds.midX - self.bottom.bounds.size.width / 2,
+                                       y: self.bounds.midY - self.bottom.bounds.size.height / 2)
+        self.bottom.strokeStart = bottomStrokeStart
+        self.bottom.strokeEnd = bottomStrokeEnd
     }
     
     override init(frame: CGRect) {

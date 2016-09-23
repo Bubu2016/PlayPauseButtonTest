@@ -7,26 +7,35 @@ class ViewController: UIViewController {
     var button :PlayPauseButton!
 
  
+    @IBOutlet weak var myButton: PlayPauseButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        self.button = PlayPauseButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
-       
-       // self.button = PlayPauseButton(frame: self.button.frame)
-        self.button.strokeColor = UIColor.blue.cgColor
-        self.button.fillColor = UIColor.lightGray.cgColor
-        self.button.backgroundColor = UIColor.darkGray
-        //self.button.center = view.center
-        self.button.addTarget(self, action: #selector(ViewController.toggle(_:)), for:.touchUpInside)
+//        self.button = PlayPauseButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
+//       
+//        self.button.strokeColor = UIColor.blue.cgColor
+//        self.button.fillColor = UIColor.lightGray.cgColor
+//        self.button.backgroundColor = UIColor.darkGray
+//        self.button.addTarget(self, action: #selector(ViewController.toggle(_:)), for:.touchUpInside)
+//        
+//        view.addSubview(self.button)
         
-        view.addSubview(self.button)
-    
+        //////////////
+        self.myButton.strokeColor = UIColor.blue.cgColor
+        self.myButton.fillColor = UIColor.lightGray.cgColor
+        self.myButton.backgroundColor = UIColor.darkGray
+        myButton.lineWidth = 4
+        myButton.miterLimit = 4
+        
+        self.myButton.addTarget(self, action: #selector(ViewController.toggle(_:)), for:.touchUpInside)
         
 }
 
     func toggle(_ sender: AnyObject!) {
-        self.button.showsMenu = !self.button.showsMenu
+//        self.button.showsMenu = !self.button.showsMenu
+                self.myButton.showsMenu = !self.myButton.showsMenu
     }
     
     override func didReceiveMemoryWarning() {
